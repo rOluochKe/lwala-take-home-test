@@ -1,20 +1,23 @@
 import { Commodity } from "../models/Commodity.js";
 
+// create commodity
 export async function createCommodity(req, res) {
   try {
-    const { name, done, projectId } = req.body;
+    const { malariaDrugs, familyPlanning, zincTablets } = req.body;
 
-    const newTask = await Task.create({
-      projectId,
-      name,
-      done,
+    const newCommodity = await Commodity.create({
+      malariaDrugs,
+      familyPlanning,
+      zincTablets,
     });
-    res.json(newTask);
+
+    res.json(newCommodity);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 }
 
+// get all commodities
 export async function getCommodities(req, res) {
   try {
     const commodities = await Commodity.findAll({

@@ -5,6 +5,7 @@ export async function getRequests(req, res) {
   try {
     const requests = await Request.findAll({
       atributes: ["id", "chw", "cha", "malariaDrugs", "familyPlanning", "zincTablets"],
+      order: [["id", "DESC"]],
     });
     res.json(requests);
   } catch (error) {

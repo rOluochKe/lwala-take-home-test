@@ -48,22 +48,23 @@ a{
   padding: 10px 15px;
   gap: 15px;
   transition: all 0.5s;
-  text-decoration: none;
 }
 
 a:hover{
   background: #0ABAB5;
   color: white;
   transition: all 0.5s;
+  text-decoration: none;
 }
 
 .link {
   color: white;
+  text-decoration: none;
 }
 
 .active{
-  background: #0ABAB5;
-  color: white;
+  /* background: #0ABAB5;
+  color: white; */
   text-decoration: none;
 }
 
@@ -79,7 +80,8 @@ a:hover{
 }
 
 .section-requests,
-.section-404 {
+.section-404,
+.section-commodities {
   width: 100%;
   margin: 0;
 }

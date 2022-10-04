@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineHeart }from "react-icons/ai";
 import { FaBars } from "react-icons/fa"
 import { MdOutlineSendAndArchive } from 'react-icons/md'
+import { CgMoreVerticalR } from 'react-icons/cg'
 
 import { NavLink } from 'react-router-dom';
 
@@ -24,6 +25,14 @@ const Sidebar = () => {
       >
         <div className="icon"><MdOutlineSendAndArchive /></div>
         <div style={{display: isOpen ? "block" : "none"}} className="link_text">Requests</div>
+      </NavLink>
+
+      <NavLink 
+        to="/commodities" 
+        className={({ isActive }) => (isActive ? "active" : "link")}
+      >
+        <div className="icon"><CgMoreVerticalR /></div>
+        <div style={{display: isOpen ? "block" : "none"}} className="link_text">Commodities</div>
       </NavLink>
 
       <div style={{display: isOpen ? "block" : "none"}} className='footer'>

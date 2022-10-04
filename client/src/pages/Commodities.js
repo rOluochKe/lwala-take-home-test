@@ -49,7 +49,7 @@ const Commodities = () => {
             ))
           ) : (
             <tr>
-              <td>No data available at this time, try again later</td>
+              <td colSpan="3">No data available at this time, try again later</td>
             </tr>
           )}
         </tbody>

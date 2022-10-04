@@ -95,3 +95,9 @@ a:hover{
   margin-left: -15px;
   margin-right: -15px;
 }
+
+.form-error {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 5px;
+}

@@ -46,7 +46,7 @@ const Table = () => {
           ))
         ) : (
           <tr>
-            <td>No data available at this time, try again later</td>
+            <td colSpan="5">No data available at this time, try again later</td>
           </tr>
         )}
       </tbody>

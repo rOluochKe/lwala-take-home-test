@@ -8,20 +8,26 @@ const Form = () => {
     malariaDrugs: "",
     familyPlanning: "",
     zincTablets: "",
-    error: "",
     success: false,
   });
+  const [formError, setFormError] = useState(false)
 
-  const { chw, cha, malariaDrugs, familyPlanning, zincTablets, error, success } = values;
+  const { chw, cha, malariaDrugs, familyPlanning, zincTablets, success } = values;
 
   const handleChange = (name) =>
     (event) => {
-      setValues({ ...values, error: false, [name]: event.target.value });
+      setValues({ ...values, [name]: event.target.value });
     };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    setValues({ ...values, error: false });
+
+    if ((chw.length === 0) || (cha.length === 0) || (malariaDrugs >= 100) || (familyPlanning >= 100) || (zincTablets >= 100)) {
+      setFormError(true)
+    }
+
+    setValues({ ...values });
+
     createRequest({ chw, cha, malariaDrugs, familyPlanning, zincTablets })
       .then((data) => {
         if (data.chw === chw) {
@@ -32,13 +38,11 @@ const Form = () => {
             malariaDrugs: "",
             familyPlanning: "",
             zincTablets: "",
-            error: "",
             success: true,
           });
         } else {
           setValues({
             ...values,
-            error: true,
             success: false,
           });
         }
@@ -53,17 +57,6 @@ const Form = () => {
         style={{ display: success ? "" : "none" }}
       >
         New request created successfully. 
-      </div>
-    );
-  };
-
-  const errorMessage = () => {
-    return (
-      <div
-        className="alert alert-danger"
-        style={{ display: error ? "" : "none" }}
-      >
-        Check all fields again
       </div>
     );
   };
@@ -119,22 +112,24 @@ const Form = () => {
       <form>
         <div className='row mb-3'>
           <div className="col-12 form-group">
-            {errorMessage()}
             {successMessage()}
           </div>
         </div>
         <div className='row mb-3'>
           <div className="col-6 form-group">
+            
             <label htmlffor="chwFormControlSelect">CHW</label>
-              <select 
-                className="form-control" 
-                id="chwFormControlSelect"
-                onChange={handleChange("chw")}
-                value={chw}
-              >
-                <option>Select CHW</option>
-                {chws.map((data) => <option key={data.id} value={data.value}>{data.chwname}</option>)}
-              </select>
+            <select 
+              className="form-control" 
+              id="chwFormControlSelect"
+              onChange={handleChange("chw")}
+              value={chw}
+            >
+              <option>Select CHW</option>
+              {chws.map((data) => <option key={data.id} value={data.value}>{data.chwname}</option>)}
+            </select>
+            { formError && chw.length <= 0 ?
+              <label className='form-error'>Please select CHW</label> : "" }
           </div>
 
           <div className="col-6 form-group">
@@ -148,6 +143,9 @@ const Form = () => {
               <option>Select CHA</option>
               {chas.map((data) => <option key={data.id} value={data.value}>{data.chwname}</option>)}
             </select>
+
+            { formError && cha.length <= 0 ?
+              <label className='form-error'>Please select CHA</label> : "" }
           </div>
         </div>
         <div className='row mb-3'>
@@ -160,6 +158,8 @@ const Form = () => {
               value={malariaDrugs}
               onChange={handleChange("malariaDrugs")}
             />
+            { formError && malariaDrugs >= 100 ?
+              <label className='form-error'>Enter a number not more than 100 per request!</label> : "" }
           </div>
 
           <div className="col-4 form-group">
@@ -171,6 +171,8 @@ const Form = () => {
               value={familyPlanning}
               onChange={handleChange("familyPlanning")}
             />
+            { formError && familyPlanning >= 100 ?
+              <label className='form-error'>Enter a number not more than 100 per request!</label> : "" }
           </div>
 
           <div className="col-4 form-group">
@@ -182,6 +184,8 @@ const Form = () => {
               value={zincTablets}
               onChange={handleChange("zincTablets")}
             />
+            { formError && zincTablets >= 100 ?
+              <label className='form-error'>Enter a number not more than 100 per request!</label> : "" }
           </div>
         </div>
         <div>
